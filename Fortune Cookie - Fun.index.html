@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fortune Cookie Experience</title>
+    <style>
+        /* Add your CSS styling here */
+        body {
+            background-image:url("Fortune-cookie-image.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color:#ffff; /* Set text color to white for better visibility on the background */
+        }
+        /* Add more styling as needed */
+
+	html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+	   
+        }
+	
+    </style>
+
+</head>
+<body>
+    <h1>Welcome to the Fortune Cookie Experience</h1>
+
+        <button type="button" id="revealButton"><h1>Reveal my Fortune Cookie</h1></button>
+    </form>
+	
+    <div id="fortuneCookieMessage" style="display: none;">
+        <h2>Your Fortune Cookie Message:</h2>
+      <h1><p id="fortuneMessage"></p></h1>
+    </div>
+
+    <script>
+	
+        // Array of fortune cookie messages
+        const fortuneMessages = [
+	    "Go listen to Burna Boy, it will bring you happiness today.",
+	    "Your reality sandwich is garnished with the quarks of serendipity.",
+	    "The quarks of destiny oscillate in the neutrino's dreamscape.",
+	    "The transcendental harmonics of your existence align with the paradoxical flux.",
+	    "In the realm of quantum spaghetti, your meatball of fate rolls onward.",
+	    "Ephemeral metaphors dance upon the holographic tapestry of your cosmic burrito.",
+	    "The quantum cats have whispered the enigma of your parallel sock.",
+	    "In the symphony of existence, your life's piccolo plays a polka on Pluto.",
+	    "As the Möbius doughnut turns, your kaleidoscopic destiny unfolds.",
+	    "The fractal mandalas of time reveal the algorithmic dance of your essence.",
+	    "Beyond the event horizon, the singularity of your fortune twirls like a dervish.",
+	    "Within the kaleidoscope of infinity, your aura pirouettes in fractal elegance.",
+	    "The cosmic jellybean of eternity refracts the rainbow of your enigmatic existence.",
+	    "Your metaphysical hamster wheel spins in quantum entanglement with destiny's gerbil.",
+	    "The moon thinks you're pretty average.",
+	    "Your lucky star just took a coffee break.",
+	    "The cosmic eggplant emits quantum waves of uncertainty in your tofu continuum.",
+	    "The cosmic monkey's banana of destiny is peeled before the quantum jury.",
+	    "In the chalice of cosmic soup, your fortune stirs the celestial alphabet.",
+	    "The cosmic accordion squeezes the harmony of your paradoxical existence.",
+	    "The celestial dishwasher of fate cleanses your cosmic cutlery.",
+	    "The algorithmic butterfly flaps its wings, and your existential hurricane whirls.",
+	    "A meteor shower will inspire you to do absolutely nothing.",
+	    "The cosmic blender mixes the metaphysical smoothie of your infinite possibilities.",
+            "The best is yet to come; keep stroking.",
+	    "A distant galaxy will name a comet after you, but it won't matter.",
+	    "Your horoscope advises you to wear mismatched socks.",
+	    "In the grand cosmic dance, remember to do the moonwalk occasionally.",
+            "Your future is bright, like a f**king tubelight.",
+            "Success is not the destination; it's the journey so google maps can't help you.",
+            "Your kindness will come back to you in unexpected ways.",
+            "Believe in miracles, and they will happen....for your enemies.",
+            "Happiness is a choice; choose caffeine every day.",
+	    "The stars say 'hello,' but don't expect much more.", 
+            "Your hard work will lead to success, keep swiping.",
+            "Trust your instincts; they won't lead you astray.",
+            "Adventure is calling; answer it d*ckhead.",
+	    "Your aura emits the scent of freshly baked bread.",
+            "Life is a beautiful journey; enjoy the ride.",
+	    "In the universe of snacks, you are a potato chip.",
+	    "Your spirit animal is a sloth in a rocket ship.",
+            "Your courage will open doors to new opportunities.",
+            "Kindness is the language that the deaf can hear and the blind can see, they can't but you get it.",
+            "The best way to predict the future is to create it.",
+            "You are the author of your own story, get drunk and start writing.",
+            "Your positive energy is contagious, go infect your mates.",
+            "A friend is a treasure, bury them...in your heart.",
+            "Embrace change; it will lead to growth and whatnot.",
+            "Your passion will lead to success?.",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+            "You are a ray of sunshine on a cloudy day, you are hard to look at.",
+            "A smile is your best accessory, so maybe go work on that booty.",
+            "You have the power to make a difference, text your Mum.",
+            "Your dreams are your reality in the making, a big-a** nap is in your near future.",
+            "The world is full of stupidity; take time to appreciate it.",
+            "A kind word can change someone's day, your Dad needs to hear it.",
+            "Believe in yourself, and others will too, maybe.",
+            "Your positive attitude will lead to positive outcomes, now go shower.",
+            "Life is an adventure; embrace it b*tch.",
+            "Your potential is limitless; reach for the stars but don't be a dick like Elon.",
+            "Love is the greatest gift of all, regift it.",
+            "Your journey may be challenging, but the reward is worth it.",
+	    "Mars appreciates your efforts to recycle.",
+            "Success is not measured by wealth but by happiness is what a broke person would say.",
+            "The best is yet to come; keep moving forward..there is a queue behind.",
+	    "Your pet rock is plotting against you.",
+	    "Your WiFi will always disconnect at the worst possible moment.",
+	    "The alignment of Neptune and your coffee cup foretells lukewarm inspiration.",
+            "Your determination will lead to success.",
+	    "You will soon develop a strong urge to alphabetize your cereal.",
+            "Kindness is never wasted, Kindness never mixed tequila with rum.",
+	    "A message in a bottle will lead you to a treasure chest of rubber dicks.",
+	    "Your fortune cookie will develop commitment issues.",
+	    "The meaning of life is... somewhere on the internet.",
+	    "Your sandwich will always be slightly lopsided.",
+            "Dream big, and don't be afraid to chase your dreams.",
+	    "Jupiter is retrograding for your sake, whatever that means.",
+            "Your hard work will pay off in the end?.",
+            "Every ending is a new beginning or something.",
+	    "In the grand symphony of the sea, you're the triangle player.",
+	    "Beware of unexpected banana peels.",
+	    "You will get a song stuck in your head, even Shazam won't find it.",
+            "Your generosity will be repaid tenfold, just not at work.",
+	    "The moon's energy is in favor of binge-watching peculiar documentaries.",
+            "You are the architect of your own destiny, get high and start architecting.",
+ 	    "You will find a hidden stash of chocolate when you least expect it.",
+            "Your dance moves will amaze and confuse others at the party.",
+            "Today is a perfect day to break out in spontaneous laughter.",
+	    "The seashells on your shelf are secretly plotting a conch-ert.",
+	    "You will discover a puppy-shaped cloud on your walk today, don't forget to look up.",
+            "You will discover a new favorite song that you can't stop humming.",
+            "Don't take life too seriously; no one gets out alive anyway.",
+            "In the game of hide and seek, you're the champion.",
+	    "You have the charm of a giggling baby panda.",
+            "A smile from a stranger will brighten your day and that's low-key creppy.",
+            "Your inner child is planning a playdate soon, PEDOOO.",
+            "The universe wants you to have an extra scoop of ice cream.",
+	    "A seagull named Tony will teach you the fine art of interpretive dance.",
+	    "Master untangling phone charger cables, you will soon be called upon.",
+            "Embrace your inner goofball; silliness is your superpower.",
+	    "Master untangling headphone cables, you will soon be called upon.",
+	    "Saturn's rings are jealous of your hula-hooping skills.",
+            "Your next adventure will involve a giant trampoline.",
+            "Laughter is the best medicine; take a dose daily.",
+            "You will impress everyone with your epic air guitar skills.",
+            "Dance like nobody's watching, even when they are.",
+            "You're the life of the party, even when there's no party.",
+            "A pillow fight with friends is in your near future.",
+            "You will win a surprise game of musical chairs.",
+            "Your next spontaneous karaoke performance will go viral.",
+	    "Your pet rock will embark on a quest to find its inner pebble.",
+            "You'll discover the joy of making funny faces in the mirror.",
+            "A tickle fight is in the cards; be prepared to laugh uncontrollably.",
+            "The universe wants you to learn to juggle. Seriously.",
+	    "A seagull in sunglasses will offer you financial advice.",
+	    "You will discover that your left foot is more philosophical than your right.",
+            "A water balloon fight will bring out your inner child.",
+            "Your sense of humor will charm everyone you meet, except your crush.",
+            "You'll meet a talking parrot with an incredible sense of humor.",
+            "Your next game of tag will be legendary.",
+	    "Ducks will gather to admire your impeccable sense of style.",
+            "You will invent a hilarious new dance move.",
+	    "The ocean's waves will provide the soundtrack to your day.",
+	    "A kitten will bless your socks with eternal warmth.",
+            "Random dance breaks will become a regular part of your day.",
+            "Expect an impromptu puppet show in your future.",
+            "You'll find the perfect skipping stone at the lake.",
+            "The universe wants you to enjoy a day of puns and wordplay.",
+            "You'll make friends with the class clown.",
+            "You'll receive a surprise delivery of whoopee cushions.",
+            "Your next selfie will involve a costume and a prop.",
+            "Your jokes will be so funny they'll become legendary.",
+            "You'll master the art of the prank call.",
+            "You'll be the captain of the world's silliest ship.",
+            "A surprise comedy show will have you laughing till it hurts.",
+            "You'll find the world's funniest YouTube video today.",
+            "Wearing mismatched socks will bring you good luck.",
+	    "Your shoelaces will come loose themselves at exactly the wrong time, be careful g.",
+	    "Today, you will meet a butterfly that loves to give high-fives.",
+            "A bubble wrap popping party is on the horizon.",
+            "Your laughter will be infectious; prepare to start a giggle epidemic.",
+            "Your funny bone will get a great workout today.",
+	    "The color orange will become the official currency of your dreams.",
+            "The universe will send you a friendly prankster as a friend.",
+	     "A sloth will teach you the ancient art of slow-motion interpretive dance.",
+            "Your next adventure will involve a giant trampoline.",
+	    "A group of baby ducks will choose you as their honorary parent.",
+	    "A chipmunk will offer you its acorn collection as a token of friendship but it's a trap!.",
+	    "Your phone battery will die at 1%, just as you are about to plug it in.",
+	    "Your mirror will start reflecting on life",
+	    "Your alarm clock will learn to play the drums.",
+	    "A rainbow will declare you the official Ambassador of Cuteness.",
+            "The world is full of opportunities; seize them.", 
+	    "A talking cactus will become your personal therapist.",
+	    "You will die.....one day! Do something today you will remember for years to come."
+        ];
+
+        // Function to generate a random fortune cookie message
+        function getRandomFortune() {
+            const randomIndex = Math.floor(Math.random() * fortuneMessages.length);
+            return fortuneMessages[randomIndex];
+        }
+
+        // Event listener for the "Reveal my Fortune Cookie" button
+        document.getElementById("revealButton").addEventListener("click", function() {
+            const fortuneMessage = getRandomFortune();
+            document.getElementById("fortuneMessage").textContent = fortuneMessage;
+            document.getElementById("fortuneCookieMessage").style.display = "block";
+        });
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Website for iPhones</title>
+    <style>
+        /* Default styles for larger screens */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Media query for iPhone screens */
+        @media (max-width: 480px) {
+            body {
+                font-size: 16px; /* Adjust font size for smaller screens */
+            }
+            
+            header {
+                padding: 10px;
+            }
+            
+            main {
+                padding: 10px;
+            }
+        }
+    </style>
+
+</body>
+</html>
+
+
+
