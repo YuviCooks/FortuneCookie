@@ -223,7 +223,27 @@
 	    "A talking cactus will become your personal therapist.",
 	    "You will die.....one day! Do something today you will remember for years to come."
         ];
+	var usedFortunes = [];
 
+        function getRandomFortune() {
+            if (usedFortunes.length === fortuneMessages.length) {
+                usedFortunes = []; // Reset used fortunes if all have been used
+            }
+
+            var randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * fortuneMessages.length);
+            } while (usedFortunes.includes(randomIndex));
+
+            usedFortunes.push(randomIndex);
+            return fortuneMessages[randomIndex];
+        }
+
+        document.getElementById("revealButton").addEventListener("click", function() {
+            var fortuneMessage = getRandomFortune();
+            document.getElementById("fortune-message").textContent = fortuneMessage;
+        });
+	    
         // Function to generate a random fortune cookie message
         function getRandomFortune() {
             const randomIndex = Math.floor(Math.random() * fortuneMessages.length);
@@ -299,6 +319,7 @@
     <footer>
        made by yuvi.
 Copyright © 2023 TheFortuneCookieExperience.com 
+	    Orange Monkey Co.
     </footer>
 </body>
 </html>
